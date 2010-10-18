@@ -4,7 +4,7 @@ Phat helps you generate JSON and XML repsonses using the same template files.
 A Phat template is plain Ruby code: whatever it returns, will get converted to
 JSON or XML.
 
-The system consists of a template handler and the handy `to_path` method
+The system consists of a template handler and the handy `to_phat` method
 defined on hashes, arrays and - currently - ActiveRecord model objects.
 
 ## Usage
