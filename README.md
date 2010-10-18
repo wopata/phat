@@ -15,7 +15,7 @@ also as a gem. Clone this repository under your Rails 3 application's
 
 Phat templates have the extension `.phat`. If you name them `action.phat`, they
 will catch all formats that have no explicitly designated templates, but of
-course you can just call the `action.json.phat` to restrict output.
+course you can just call them e.g. `action.json.phat` to restrict the format.
 
 ## An example
 
