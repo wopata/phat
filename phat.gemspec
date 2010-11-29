@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'phat'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
 
   s.summary = 'Format-agnostic templating for API responses'
   s.description = 'Format-agnostic templating for API responses in Rails 3' # TODO

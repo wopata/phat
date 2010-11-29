@@ -14,9 +14,7 @@ module Phat
 
       if options[:refs]
         options[:refs].each do |i,roptions|
-          if ref = self.class.reflections[i]
-            ret[i] = send(i).to_phat(roptions)
-          end
+          ret[i] = send(i).to_phat(roptions)
         end
       end
 
