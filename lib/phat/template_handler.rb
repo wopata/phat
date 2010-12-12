@@ -4,9 +4,15 @@ module Phat
     self.default_format = Mime::JSON
 
     def compile template
-      "Phat::TemplateHandler.process(formats) do
-         #{template.source}
-       end"
+      if template.virtual_path =~ %r(/_[a-z0-9_]+$)
+        # Partials should not be serialized..
+        template.source
+      else
+        # ..so they can be called from non-partials.
+        "Phat::TemplateHandler.process(formats) do
+           #{template.source}
+         end"
+      end
     end
 
     class << self
