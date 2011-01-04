@@ -14,7 +14,9 @@ module Phat
 
       if options[:refs]
         options[:refs].each do |i,roptions|
-          ret[i] = send(i).to_phat(roptions)
+          obj = send i
+          obj = roptions[:transform].(obj) if roptions[:transform]
+          ret[i] = obj.to_phat(roptions)
         end
       end
 

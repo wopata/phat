@@ -27,7 +27,7 @@ An example Phat template might look like this:
         refs: {
           pets: {
             only: %w(name species),
-            merge: { path: ->(pet) { pet_path(pet) }}}) }
+            merge: { path: ->(pet) { pet_path(pet) }}}})}
 
 It will yield the following output (pretty printed here for readability):
 
@@ -37,7 +37,7 @@ It will yield the following output (pretty printed here for readability):
         "pets": [
           { "name": "Wordsworth",
             "species": "Canis lupus familiaris",
-            "path: "/pets/wordsworth" }]},
+            "path": "/pets/wordsworth" }]},
       { "name": "Jon Arbuckle",
         "path": "/users/jon",
         "pets": [
@@ -46,14 +46,14 @@ It will yield the following output (pretty printed here for readability):
             "path": "/pets/garfield" },
           { "name": "Odie",
             "species": "Canis lupus familiaris",
-            "path: "/pets/odie" }]}]}
+            "path": "/pets/odie" }]}]}
 
 The variable `@users` is an array (or an Arel relation), so as you can see,
 parameters meant to be used by `ActiveRecord::Base#to_phat` will cascade down
 through enumerables.
 
 You can control the inclusion of AR fields and custom methods using `only`,
-`also` and `expect`. If you do not wish to include any AR attributes in the
+`also` and `except`. If you do not wish to include any AR attributes in the
 output, use `only: nil`. If you want to include all AR attributes and throw in
 some custom method calls, use the `also` keyword.
 
@@ -63,3 +63,13 @@ this is most useful with generated URL's.
 Phat is able to look into all kinds of AR reflections with the `refs` keyword;
 they will be represented either as arrays or a single object. All the above
 keywords (and `refs` itself) can be applied and will cascade.
+
+In definitions under `refs` you can use the `transform` keyword to add a
+Proc that will be used to transform said reference:
+
+    { users: @users.to_phat(
+        only: 'name',
+        refs: {
+          pets: {
+            transform: ->(pets) { pets.where(:active, true) },
+            only: %w(name species) }})}
